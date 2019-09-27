@@ -8,10 +8,19 @@ const cartGetSelectedValue = (e) => (
 );
 
 const CartContainer = connect(
-  (state) => (
-    {
+  (state) => {
+    const stock = {}; // create an object map for stock to avoid quadratic time func
+
+    // iterate over stock once, rather than `find(stockItem => cartItem.id === stockItem.id)`
+    for (let i = 0; i < state.stock.length; i++) {
+      stock[state.stock[i].id] = state.stock[i];
+    }
+
+    return {
+      stock,
       cart: state.cart.map(cartItem => {
-        const item = state.stock.find(stockItem => cartItem.id === stockItem.id);
+        const item = stock[cartItem.id];
+
         return {
           id: cartItem.id,
           name: item.name,
@@ -19,12 +28,17 @@ const CartContainer = connect(
           img: item.img,
           count: cartItem.count,
           stockCount: item.count,
+          productType: item.product_type
         };
-      }),
+      })
     }
-  ),
+  },
   (dispatch) => (
     {
+      addBikeToCart: () => { // TODO: Delete once done debugging checkout process
+        dispatch(A.addToCart(2, 1));
+      },
+
       onQtyChange: (e, id) => {
         dispatch(A.updateCartItem(id, cartGetSelectedValue(e)));
       },
@@ -39,11 +53,10 @@ const CartContainer = connect(
   ),
   (stateProps, dispatchProps, ownProps) => (
     Object.assign({}, ownProps, stateProps, dispatchProps, {
-      onPayClick: () =>
-        stateProps.cart.map(item => {
-          dispatchProps.dispatch(A.removeStockItem(item.id, item.count));
-          dispatchProps.dispatch(A.removeFromCart(item.id));
-        }),
+      onPayClick: () => stateProps.cart.map(item => {
+        dispatchProps.dispatch(A.removeStockItem(item.id, item.count));
+        dispatchProps.dispatch(A.removeFromCart(item.id));
+      }),
     })
   )
 )(Cart);

@@ -68,7 +68,7 @@ $cartMaxWidth: 60rem;
 
 $shopItemMaxWidth: 21.625rem;
 
-$buttonMaxWidth: 20rem;
+$buttonMaxWidth: 400px;
 
 // typography
 $fontFamily: Helvetica, Arial, sans-serif;
@@ -143,22 +143,35 @@ h1, h2 {
 // COMPONENTS
 // button
 .item-add-button, .cart-pay-button {
-  font-size: $buttonFontSize;
+  font-size: 1.2rem;
   font-weight: bold;
   color: $buttonFontColor;
   background-color: $buttonBgColor;
   display: block;
-  width: 100%;
+  width: auto;
   max-width: $buttonMaxWidth;
-  padding: 0.25rem 0.5rem;
+  padding: 8px 16px;
+  white-space: nowrap;
   margin: 1.5rem auto 0;
   border: none;
   border-radius: 0.375rem;
-  box-shadow: 0 0.375rem $buttonBorderColor;
+  box-shadow: 0 3px $buttonBorderColor;
   transition: 0.2s;
+  cursor: pointer;
+
   &:active {
     transform: translateY(0.375rem);
     box-shadow: 0 0 $buttonBorderColor;
+  }
+}
+
+.cart-pay-button {
+  &.disabled {
+    opacity: 0.5;
+    background-color: #ccc;
+    box-shadow: 0 3px #777;
+    color: #111;
+    cursor: not-allowed;
   }
 }
 
@@ -262,21 +275,21 @@ h1, h2 {
   padding: 0.5rem;
   border: 0.125rem solid $cartButtonBorderColor;
   border-radius: 0.375rem;
-  background-color: $cartButtonFallbackBgColor;
   background-color: $cartButtonBgColor;
   color: $buttonFontColor;
   font-weight: bold;
+
   &:hover, &:active, &:focus {
     color: $buttonFontColor;
   }
+
   &:hover, &:focus {
     border: 0.125rem solid $cartButtonHoverBorderColor;
-    background-color: $cartButtonHoverFallbackBgColor;
     background-color: $cartButtonHoverBgColor;
   }
+
   &:active {
     border: 0.125rem solid $cartButtonActiveBorderColor;
-    background-color: $cartButtonActiveFallbackBgColor;
     background-color: $cartButtonActiveBgColor;
   }
 }
@@ -354,7 +367,7 @@ h1, h2 {
   margin: 2rem auto;
   max-width: $shopItemMaxWidth;
   border: 0.0625rem solid $linkColor;
-  box-shadow: 0 0 0.625rem 0.25rem $linkColor;
+  box-shadow: 0 10px 10px rgba(0,0,0,0.3);
 }
 
 .shop-item-image, .shop-item-name, .shop-item-price {
@@ -375,6 +388,10 @@ h1, h2 {
   padding-bottom: 1rem;
 }
 
+.shop-item-container {
+  text-align: center;
+}
+
 @include breakpoint($smallTabletBP) {
   .shop-item-list {
     display: flex;
@@ -393,6 +410,65 @@ h1, h2 {
   .shop-item {
     flex: 0 0 29%;
     margin: 2rem 2.166%;
+  }
+}
+
+// Checkout
+
+.heading-3 {
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 700;
+  padding-bottom: 10px;
+}
+
+.checkout {
+  height: 590px;
+  background: #2f2c33;
+  color: white;
+}
+
+.checkout-form-container {
+  padding: 35px 25px;
+}
+
+.input {
+  padding: 5px 0;
+
+  &.label {
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #78757c;
+  }
+
+  &.input {
+    //width: 100%;
+    padding: 5px 10px;
+    color: white;
+    letter-spacing: 0px;
+    font-size: 14px;
+    background: 0;
+    border: 0;
+  }
+
+  &.input:focus {
+    outline: 0;
+  }
+}
+
+.input-field {
+  border: 1px solid #78757c;
+  border-radius: 5px;
+  position: relative;
+
+  &.imgSrc {
+    width: 25px;
+    height: auto;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    margin-right: 5px;
   }
 }
 

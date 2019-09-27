@@ -1,8 +1,6 @@
 import React from 'react';
 import CartItem from './CartItem';
 
-
-
 const CartItems = ({ cart, onQtyChange, onRemoveClick }) => {
   if (!cart.length) {
     return <p className='empty-cart'>Cart is empty</p>;
@@ -16,6 +14,7 @@ const CartItems = ({ cart, onQtyChange, onRemoveClick }) => {
           id={item.id}
           name={item.name}
           price={item.price}
+          productType={item.productType}
           img={item.img}
           count={item.count}
           stockCount={item.stockCount}

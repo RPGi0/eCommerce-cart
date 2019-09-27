@@ -28,3 +28,8 @@ export const removeStockItem = (id, count) => (
     count,
   }
 );
+
+export const updatePaymentInfo = () => ({
+  type: 'UPDATE_PAYMENT_INFO',
+
+});
