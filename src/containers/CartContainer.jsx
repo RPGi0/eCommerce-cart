@@ -35,10 +35,6 @@ const CartContainer = connect(
   },
   (dispatch) => (
     {
-      addBikeToCart: () => { // TODO: Delete once done debugging checkout process
-        dispatch(A.addToCart(2, 1));
-      },
-
       onQtyChange: (e, id) => {
         dispatch(A.updateCartItem(id, cartGetSelectedValue(e)));
       },

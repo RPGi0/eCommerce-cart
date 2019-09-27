@@ -26,19 +26,8 @@ const Cart = ({ cart, onQtyChange, onRemoveClick, onPayClick, addBikeToCart}) =>
     setCheckoutStep
   };
 
-  const populateCart = () => { // Todo delete before deploy
-    addBikeToCart();
-    setCheckoutStep(2);
-  };
-
   return (
     <div className='cart'>
-      <button // Todo delete before deploy
-        type='button'
-        onClick={populateCart}>
-        Skip to checkout
-      </button>
-
       {checkoutStep === 1 && <ViewCart {...props} />}
       {checkoutStep === 2 && <EnterPaymentInfo {...props} setPaymentInfo={setPaymentInfo} />}
       {checkoutStep === 3 && <OrderConfirmation {...props} />}
